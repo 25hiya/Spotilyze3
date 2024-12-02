@@ -3,7 +3,8 @@ package use_case.song_recommend;
 import com.fasterxml.jackson.databind.JsonNode;
 import data_access.DataGetterClass;
 
-import use_case.login.LoginInputData;
+import entity.CurrentUser;
+
 
 import java.io.IOException;
 import java.util.*;
@@ -11,11 +12,14 @@ import java.util.*;
 public class SongRecommendInteractor implements SongRecommendInputBoundary {
 
     private final SongRecommendOutputBoundary outputBoundary;
+    private final CurrentUser currentUser; // Dependency for accessing the token
+
     //private final String token; // Inject token dynamically
 
 
-    public SongRecommendInteractor(SongRecommendOutputBoundary outputBoundary) {
+    public SongRecommendInteractor(SongRecommendOutputBoundary outputBoundary, CurrentUser currentUser) {
         this.outputBoundary = outputBoundary;
+        this.currentUser = currentUser;
         //this.token = token;
 
     }
@@ -52,7 +56,7 @@ public class SongRecommendInteractor implements SongRecommendInputBoundary {
 
     private Map<String, String> getAllTracks(String genre) throws IOException {
         String searchUrl = "https://api.spotify.com/v1/search?q=genre:" + genre + "&type=track&limit=20";
-        JsonNode allTracks = DataGetterClass.getData(searchUrl);
+        JsonNode allTracks = DataGetterClass.getData(searchUrl, currentUser);
 
         Map<String, String> conciseList = new HashMap<>();
         JsonNode items = allTracks.get("tracks").get("items");

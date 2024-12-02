@@ -2,6 +2,7 @@ package data_access;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.CurrentUser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,10 +13,9 @@ import java.net.URL;
 public class DataGetterClass {
 
 
-    public static JsonNode getData(String queryUrl) throws IOException {
+    public static JsonNode getData(String queryUrl, CurrentUser currentUser) throws IOException {
         // Construct the query URL
-        String Token = "BQByOEUh6cwcK6P96sT_wFdrMqMGqMH0CEXycNkXsyAKHeZxFSlo9UNt-urG-_iIGgX1yQpqozY22FS2AVoh7E4UND5ASOvbpzjcmnCAFspngnjhKyGAIdvy-3PSOJXs2s1dj5wwckor2NxTd5cZCIVK1mGJwcSR1t_0HeCuZx-ubxliwgYwLcc0pcxAk_EQhKzNW0GmGrVjSkMQm_Lds0vK3bl-Pqc22oBF4vwJcjcOuw";
-
+        final String token = currentUser.getAccessToken();
 
         //LoginClass.getAccess_token();
         //String queryUrl = SEARCH_URL + userName (for getting user info)
@@ -23,10 +23,10 @@ public class DataGetterClass {
         //https://api.spotify.com/v1/me
 
         // Set up the connection
-        URL url = new URL(queryUrl);
+        URL url = new URL(queryUrl); //queryUrl
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
-        connection.setRequestProperty("Authorization", "Bearer " + Token);
+        connection.setRequestProperty("Authorization", "Bearer " + token);
 
         // Handle response
         int status = connection.getResponseCode();
@@ -54,15 +54,8 @@ public class DataGetterClass {
     }
 
 //    public static void main(String[] args) {
-//        System.out.println(LoginClass.getAccess_token());
 //        try { // Replace with actual token from getToken()
-//            String userName = "me"; // Replace with the user's name
-//            if (userName.equals("me")) {
-//                searchUser(userName);
-//            }
-//            else {
-//                searchUser("users/" + userName);
-//            }
+//            System.out.println(getData("https://api.spotify.com/v1/artists?ids=5rWU8Vm32I8BJtPtrY5JC7%2C20wkVLutqVOYrc0kxFs7rA%2C5069JTmv5ZDyPeZaCCXiCg%2C3fMbdgg4jU18AjLCKBhRSm%2C1rg7cCiRd1SEUz8zGwOnM2%2C2CIMQHirSU0MQqyYHq0eOx"));
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
