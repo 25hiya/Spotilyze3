@@ -55,4 +55,9 @@ Spotilyze is a powerful tool that connects to your Spotify account and provides 
 
 Spotilyze is your personalized music assistant, designed to help you dive deeper into your musical journey. Whether you're rediscovering old favorites or exploring new sounds, Spotilyze is here to make music listening more insightful and fun!
 
+How to use it? 
+In order to use the spotify API, we add to create something called an app, on the Spotify for developer's website and put the email addresses of everyone who wants to use that API under a section for giving access. Due to this, we are giving the account info for one our team mate's who has agreed to share their profile for puepose being able to use Spotilyze. 
+Log in to the following Spotify account: Email: hargunb2021@gmail.com
+                                         Password: spotify@2005
+Once logged in, you can run Main.main and access the functionalities. 
 ---
